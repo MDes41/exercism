@@ -6,7 +6,7 @@ class Bob
       'Whoa, chill out!'
     elsif check_if_question?(remark)
       'Sure.'
-    elsif remark.tr(" \t", '') == ''
+    elsif remark.tr(" \t\n", '') == ''
       'Fine. Be that way!'
     else
       'Whatever.'
