@@ -1,23 +1,40 @@
 class RunLengthEncoding
+
+  VERSION = 1
+  
   def self.encode(input)
-    result_hash = Hash.new(0)
-    input.chars.map do |letter|
-      result_hash[letter] += 1
-    end
     result_string = ''
-    result_hash.each do |letter, quantity|
-      result_string << quantity.to_s if quantity != 0
-      result_string << letter
+    quantity = 1
+    input.chars.each_with_index do |letter, index|
+      if input.chars[index] == input.chars[index + 1]
+        quantity += 1
+        next
+      else
+        quantity = '' if quantity == 1
+        result_string << quantity.to_s + letter
+        quantity = 1
+      end
     end
     result_string
   end
 
   def self.decode(input)
-    multiplyer = 1
-    input.chars.map do |character|
-      multiplyer = character if number?(character) == true
-      "#{character}" * multiplyer.to_i if number?(character) == false
+    multiplyer = ''
+    result = ''
+    input.chars.each_with_index do |character, index|
+      if number?(character)
+        multiplyer << character
+        next if number?(input.chars[index + 1])
+      else
+        if multiplyer == ''
+          result << "#{character}"
+        else
+          result << "#{character}" * multiplyer.to_i
+        end
+        multiplyer = ''
+      end
     end
+    result
   end
 
   def self.number?(character)

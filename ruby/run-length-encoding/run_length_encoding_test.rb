@@ -27,14 +27,12 @@ class RunLengthEncodingTest < Minitest::Test
   end
 
   def test_decode_with_single_values
-    skip
     input = '12WB12W3B24WB'
     output = 'WWWWWWWWWWWWBWWWWWWWWWWWWBBBWWWWWWWWWWWWWWWWWWWWWWWWB'
     assert_equal output, RunLengthEncoding.decode(input)
   end
 
   def test_decode_encode_combination
-    skip
     input = 'zzz ZZ  zZ'
     output = 'zzz ZZ  zZ'
     assert_equal output,
@@ -42,14 +40,12 @@ class RunLengthEncodingTest < Minitest::Test
   end
 
   def test_encode_unicode
-    skip
     input = '⏰⚽⚽⚽⭐⭐⏰'
     output = '⏰3⚽2⭐⏰'
     assert_equal output, RunLengthEncoding.encode(input)
   end
 
   def test_decode_unicode
-    skip
     input = '⏰3⚽2⭐⏰'
     output = '⏰⚽⚽⚽⭐⭐⏰'
     assert_equal output, RunLengthEncoding.decode(input)
@@ -64,7 +60,6 @@ class RunLengthEncodingTest < Minitest::Test
   # If you are curious, read more about constants on RubyDoc:
   # http://ruby-doc.org/docs/ruby-doc-bundle/UsersGuide/rg/constants.html
   def test_bookkeeping
-    skip
     assert_equal 1, RunLengthEncoding::VERSION
   end
 end
