@@ -9,41 +9,23 @@ class Game
 
   def initialize
     @pins = 0
-    @ball = 0
-    @frame = 0
+    @ball = 1
+    @frame = 1
+    @current_frame = 1
     @current_roll = {}
     @previous_roll = nil
   end
 
   def roll(pins)
-    @frame += 1
-    @current_roll = 'strike' if pins == 10
-    @current_roll = 'spare' if pins + @previous_roll == 10
-    if @frame == 1
+    if @frame == @current_frame
       @pins += pins
-      @previous_roll = @pins
+    else
+    @pins += pins
+    @pins += 10 if @previous_roll == 'strike'
+    if pins == 10
+      @previous_roll = 'strike'
+      @current_frame += 1
     end
-    @ball += 1 if pins == 10
-    @frame += 1 if @ball == 3 || pins == 10
-  #if current_roll
-      #if previous_roll
-        #if strike
-
-        #or
-        #if spare
-
-      or
-      add pins
-
-
-
-
-    @ball = 1 if @ball == 0 || @ball == 3
-
-    if @ball == 1 && pins == 10
-      @pins += pins
-    @ball += 1 if pins == 10
-    @ball += 1
   end
 
   def score
