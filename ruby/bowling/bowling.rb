@@ -10,15 +10,25 @@ class Game
   def initialize
     @pins = 0
     @ball = 0
+    @frame = 0
     @current_roll = {}
-    @previous_roll = {}
+    @previous_roll = nil
   end
 
   def roll(pins)
-    #if current_roll
+    @frame += 1
+    @current_roll = 'strike' if pins == 10
+    @current_roll = 'spare' if pins + @previous_roll == 10
+    if @frame == 1
+      @pins += pins
+      @previous_roll = @pins
+    end
+    @ball += 1 if pins == 10
+    @frame += 1 if @ball == 3 || pins == 10
+  #if current_roll
       #if previous_roll
         #if strike
-        
+
         #or
         #if spare
 
