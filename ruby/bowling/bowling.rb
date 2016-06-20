@@ -16,7 +16,17 @@ class Game
   end
 
   def score
-    @pins.reduce(:+)
+    @pins.map do |pin|
+      if pin < 10
+        @@frame => pin
+        @frame += 1
+      else
+        @total[@frame] += pin
+      end
+    end.reduce(:+)
+  end
+
+
   end
 
 end
