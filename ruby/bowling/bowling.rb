@@ -8,21 +8,24 @@ class Game
   #callculate fist roll as a strike or spare and if else statement
 
   def initialize
-    @pins = 0
+    @pins = []
     @frame = 1
   end
 
   def roll(pins)
-    if @pins[-1] == 10 && @pins.count > 1
-      @previous_frame = 'strike'
-    elsif @pins[-1] + @pins[-2] == 10 && @pins.count > 2
-      @previous_frame = 'spare'
-    else
-      @previous_frame = nil
+
+    if @pins.count == 1 || @pins.count >= 2
+      if @pins[-1] == 10 && @pins.count > 1
+        @previous_frame = 'strike'
+      elsif @pins[-1] + @pins[-2] == 10 && @pins.count > 2
+        @previous_frame = 'spare'
+      else
+        @previous_frame = nil
+      end
     end
+
     if pins == 10
       @pins << pins
-      @frame += 1
       @ball = 1
     elsif @ball == 1 && @previous_frame == 'strike'
       @pins << pins * 2
@@ -30,10 +33,9 @@ class Game
     elsif @ball == 2 && @previous_frame == 'strike'
       @pins << pins * 2
       @ball += 1
-    elsif @ball == 2 && @pins[-1] + pins == 10
-      @current_frame = 'spare'
+    elsif @ball == 1 && @previous_frame == 'spare'
+      @pins << pins * 2
     elsif @ball == 3
-      @frame += 1
       @ball = 1
       self.roll(pins)
     else
@@ -42,7 +44,7 @@ class Game
   end
 
   def score
-    @pins
+    @pins.reduce(:+)
   end
 
 end
