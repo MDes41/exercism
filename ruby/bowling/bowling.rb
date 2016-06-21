@@ -9,9 +9,29 @@ class Game
 
   def initialize
     @pins = []
+    @frame = 1
   end
 
   def roll(pins)
+    if pins == 10
+      @previous_frame = 'strike'
+      @pins += pins
+      @frame += 1
+      @ball = 1
+    elsif @ball == 2 && @pins[-1] + pins == 10
+      @frame += 1
+      @pins += pins
+      @previous_frame = 'spare'
+    elsif @ball == 1 && @previous_frame == 'strike'
+      @pins += pins * 2
+      @ball += 1
+    elsif @ball == 2 & @previous_frame == 'strike'
+      @pins += pins * 2
+    elsif @ball == 3
+      @frame += 1
+      self.roll(pins)
+      @
+
     @pins << pins
   end
 
