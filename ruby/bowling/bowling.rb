@@ -25,7 +25,7 @@ class Game
       # require "pry"; binding.pry
       if @pins[@frame - 2] == 10
         @previous_frame = 'strike'
-      elsif @pins[@frame - 1] + @pins[@frame - 2] == 10 && @pins.count >= 2
+      elsif @pins[@frame - 2] + @pins[@frame - 3] == 10 && @pins.count >= 2
         # require "pry"; binding.pry
         @previous_frame = 'spare'
       else
@@ -33,10 +33,16 @@ class Game
       end
     end
 
-    if pins == 10
+    if pins == 10 && @previous_frame == nil
       # require "pry"; binding.pry
       @pins << pins
-      @pins[@frame] * 2  if @previous_frame == 'strike'
+      @ball = 1
+      @frame += 1
+    elsif pins == 10 && @previous_frame == 'strike'
+      # require "pry"; binding.pry
+      # require "pry"; binding.pry
+      @pins << pins
+      @extra_pins << @pins[@frame - 2] * 2
       @ball = 1
       @frame += 1
     elsif @ball == 1 && @previous_frame == 'strike'
