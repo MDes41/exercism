@@ -1,81 +1,56 @@
 class Game
 
-  #if 10 pins are knocked down in the first ball the ball is reset to one
-  #if less than 10 pins are knocked down in the first ball, second ball
-  #if 3rd ball resset the ball back to 1st ball
-  #if strike on first ball multiply the next two rolls
-  #have to store the previous roll as a strike or a spare
-  #callculate fist roll as a strike or spare and if else statement
+  attr_reader :final_score, :pins_array
 
   def initialize
-    @pins_score = []
-    @frame = 1
-    @ball = 1
-    @pins_hit = []
+    @pins_array = []
   end
 
   def roll(pins)
+    @pins_array << pins
+  end
 
-    @pins_hit << pins
-
-    if @pins.join.length == 1
-      if @pins_hit[@frame - 2] == 10
-        @previous_frame = 'strike'
+  def strike_indexes
+    @pins_array.map.with_index do |pins, index|
+      if pins == 10
+        index
       end
-    end
+    end.compact
+  end
 
-    if @pins.join.length >= 2
-      # require "pry"; binding.pry
-      if @pins_hit[@frame - 2] == 10
-        @previous_frame = 'strike'
-      elsif @pins_hit[@frame - 2] + @pins_hit[@frame - 3] == 10 && @pins.count >= 2
-        # require "pry"; binding.pry
-        @previous_frame = 'spare'
-      else
-        @previous_frame = nil
-      end
+  def frames
+    strike_indexes.reverse.each do |index|
+      @pins_array.insert(index, 0)
     end
-
-    if pins == 10 && @previous_frame == nil
-      # require "pry"; binding.pry
-      @pins << pins
-      @ball = 1
-      @frame += 1
-    elsif pins == 10 && @previous_frame == 'strike'
-      # require "pry"; binding.pry
-      # require "pry"; binding.pry
-      @pins << pins * 2
-      @extra_pins << @pins_hit[@frame - 2] * 2
-      @ball = 1
-      @frame += 1
-    elsif @ball == 1 && @previous_frame == 'strike'
-      # require "pry"; binding.pry
-      @pins << pins * 2
-      @ball += 1
-    elsif @ball == 2 && @previous_frame == 'strike'
-      # require "pry"; binding.pry
-      @pins << pins * 2
-      @ball += 1
-    elsif @ball == 1 && @previous_frame == 'spare'
-      # require "pry"; binding.pry
-      @pins << pins * 2
-      @ball += 1
-    elsif @ball == 3
-      # require "pry"; binding.pry
-      @ball = 1
-      @pins_hit.pop
-      self.roll(pins)
-    else
-      # require "pry"; binding.pry
-      @pins << pins
-      @ball += 1
-      @frame += 0.5
-    end
+    @pins_array.each_slice(2).to_a
   end
 
   def score
+    result = []
+    frames_u = frames
+    result[0] = frames_u[0][0] + frames_u[0][1]
+    if frames_u.count > 1
+      frames_u.each_with_index do |pins, index|
+        if strike(index, frames_u)
+          result << result[index - 1] * 2
+        elsif spare(index, frames_u)
+          result << pins[0] * 2 + pins[1]
+        end
+      end
+    else
+      result = @pins_array.flatten
+    end
     require "pry"; binding.pry
-    @pins.reduce(:+)
+    result.reduce(:+)
   end
 
+  def strike(index, frames_u)
+    return FALSE if frames_u.count <= 1
+    frames_u[index - 1][1] == 10
+  end
+
+  def spare(index, frames_u)
+    return FALSE if frames_u.count <= 1
+    frames_u[index - 1][0] + frames_u[index -1][1] == 10
+  end
 end

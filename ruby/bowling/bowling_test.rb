@@ -27,6 +27,14 @@ class GameTest < Minitest::Test
     assert_equal 7, @game.score
   end
 
+  def test_that_final_score_groups_correctly_without_strike
+    skip
+    @game.roll(3)
+    @game.roll(4)
+    roll_n_times(18, 0)
+    assert_equal [[3, 4], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], @game.final_score
+  end
+
   def test_should_be_able_to_score_multiple_frames
     skip
     [3, 4, 2, 3, 5, 2].each do |pins|
@@ -64,6 +72,17 @@ class GameTest < Minitest::Test
     assert_equal 26, @game.score
   end
 
+  def test_groups_scores_with_a_strike_or_two
+    @game.roll(10)
+    @game.roll(10)
+    @game.roll(5)
+    @game.roll(3)
+    roll_n_times(16, 0)
+
+    # assert_equal 26, @game.frames
+    assert_equal 25, @game.score
+  end
+
   def test_should_score_a_spare_that_is_not_on_the_last_frame
     skip
     @game.roll(5)
@@ -88,6 +107,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_score_multiple_spares_in_a_row
+    skip
     @game.roll(5)
     @game.roll(5)
     @game.roll(3)
