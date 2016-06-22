@@ -8,24 +8,27 @@ class Game
   #callculate fist roll as a strike or spare and if else statement
 
   def initialize
-    @pins = []
+    @pins_score = []
     @frame = 1
     @ball = 1
+    @pins_hit = []
   end
 
   def roll(pins)
 
+    @pins_hit << pins
+
     if @pins.join.length == 1
-      if @pins[@frame - 2] == 10
+      if @pins_hit[@frame - 2] == 10
         @previous_frame = 'strike'
       end
     end
 
     if @pins.join.length >= 2
       # require "pry"; binding.pry
-      if @pins[@frame - 2] == 10
+      if @pins_hit[@frame - 2] == 10
         @previous_frame = 'strike'
-      elsif @pins[@frame - 2] + @pins[@frame - 3] == 10 && @pins.count >= 2
+      elsif @pins_hit[@frame - 2] + @pins_hit[@frame - 3] == 10 && @pins.count >= 2
         # require "pry"; binding.pry
         @previous_frame = 'spare'
       else
@@ -41,8 +44,8 @@ class Game
     elsif pins == 10 && @previous_frame == 'strike'
       # require "pry"; binding.pry
       # require "pry"; binding.pry
-      @pins << pins
-      @extra_pins << @pins[@frame - 2] * 2
+      @pins << pins * 2
+      @extra_pins << @pins_hit[@frame - 2] * 2
       @ball = 1
       @frame += 1
     elsif @ball == 1 && @previous_frame == 'strike'
@@ -60,6 +63,7 @@ class Game
     elsif @ball == 3
       # require "pry"; binding.pry
       @ball = 1
+      @pins_hit.pop
       self.roll(pins)
     else
       # require "pry"; binding.pry
