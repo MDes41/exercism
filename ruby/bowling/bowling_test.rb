@@ -1,4 +1,4 @@
-#!/usr/bin/env ruby
+# !/usr/bin/env ruby
 gem 'minitest', '>= 5.0.0'
 require 'minitest/autorun'
 require_relative 'bowling'
@@ -79,8 +79,8 @@ class GameTest < Minitest::Test
     @game.roll(3)
     roll_n_times(16, 0)
 
-    # assert_equal 26, @game.frames
-    assert_equal 25, @game.score
+    assert_equal 26, @game.frames
+    assert_equal 25, @game.s
   end
 
   def test_should_score_a_spare_that_is_not_on_the_last_frame

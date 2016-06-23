@@ -31,8 +31,10 @@ class Game
     result[0] = frames_u[0][0] + frames_u[0][1]
     if frames_u.count > 1
       frames_u.each_with_index do |pins, index|
-        if strike(index, frames_u)
+        if strike(index, frames_u) && !double_strike(index, frames_u)
           result << result[index - 1] * 2
+        elsif strike(index, frames_u) && double_strike(index, frame_u)
+          result <<
         elsif spare(index, frames_u)
           result << pins[0] * 2 + pins[1]
         end
