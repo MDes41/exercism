@@ -28,7 +28,7 @@ class Game
   def score
     result = []
     frames_u = frames
-    result[0] = frames_u[0][0] + frames_u[0][1]
+    # result[0] = frames_u[0][0] + frames_u[0][1]
     if frames_u.count > 1
       frames_u.each_with_index do |pins, index|
         if strike(index, frames_u) && !double_strike(index, frames_u)
@@ -45,6 +45,9 @@ class Game
     require "pry"; binding.pry
     result.reduce(:+)
   end
+
+  def double_strike(index, frames_u)
+    
 
   def strike(index, frames_u)
     return FALSE if frames_u.count <= 1
