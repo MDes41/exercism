@@ -35,6 +35,24 @@ class GameTest < Minitest::Test
     assert_equal [[3, 4], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], @game.final_score
   end
 
+  def test_that_final_score_groups_correctly_without_strike
+    skip
+    @game.roll(10)
+    @game.roll(10)
+    @game.roll(2)
+    @game.roll(4)
+    assert_equal [[0,10],[0,10],[2,4]], @game.frames
+  end
+
+  def test_that_two_strikes_add_to_thirty
+      @game.roll(10)
+      @game.roll(10)
+      @game.roll(10)
+      @game.roll(3)
+      @game.roll(4)
+      assert_equal 81, @game.score
+  end
+
   def test_should_be_able_to_score_multiple_frames
     skip
     [3, 4, 2, 3, 5, 2].each do |pins|
@@ -73,6 +91,7 @@ class GameTest < Minitest::Test
   end
 
   def test_groups_scores_with_a_strike_or_two
+    skip
     @game.roll(10)
     @game.roll(10)
     @game.roll(5)
@@ -80,7 +99,7 @@ class GameTest < Minitest::Test
     roll_n_times(16, 0)
 
     assert_equal 26, @game.frames
-    assert_equal 25, @game.s
+    assert_equal 25, @game.score
   end
 
   def test_should_score_a_spare_that_is_not_on_the_last_frame
