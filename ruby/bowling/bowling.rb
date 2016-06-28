@@ -20,7 +20,7 @@ class Game
 
   def frames
     strike_indexes.reverse.each do |index|
-      @pins_array.insert(index, 0)
+      @pins_array.insert(index + 1, 0)
     end
     @pins_array.each_slice(2).to_a
   end
@@ -28,38 +28,50 @@ class Game
   def score
     result = []
     frames_u = frames
-    # result[0] = frames_u[0][0] + frames_u[0][1]
+    # require "pry"; binding.pry
     if frames_u.count > 1
       frames_u.each_with_index do |pins, index|
-        if strike(pins) && !strike(index + 1,pins)
-          result << pins[1] + add_one_frame(index, pins)
-        elsif strike(index, pins) && strike(index + 1, pins)
-          result << pins[1] + add_two_frames(index, pins)
-        elsif strike(index, pins) && spare(index, pins)
-          result << pins[0] * 2 + pins[1]
+        next_frame_pins = frames_u[index + 1]
+        next_next_frame_pins = frames_u[index + 2]
+        next_frame_pins = [0,0] if frames_u.count - index <= 1
+        # next_next_frame_pins = [0,0] if frames_u.count - index <= 2
+        # require "pry"; binding.pry
+        if strike(pins) && !strike(next_frame_pins)
+          result << pins[0] + add_one_frame(next_frame_pins)
+        elsif strike(pins) && strike(next_frame_pins)
+          result << pins[0] + add_one_frame(next_frame_pins) + add_two_frames(next_next_frame_pins)
+        elsif strike(pins) && spare(next_frame_pins)
+          result << pins[0] + add_first_ball_next_frame(next_frame_pins)
+        elsif spare(pins)
+          result << pins[0] + pins[1] + add_first_ball_next_frame(next_frame_pins)
         else
-          result << pins[0]
+          result << pins[0] + pins[1]
         end
       end
     else
       result = @pins_array.flatten
     end
+    # require "pry"; binding.pry
     result.reduce(:+)
   end
 
-  def add_one_frame(index, pins)
-    pins[index + 1][0] + pins[index + 1][1]
+  def add_first_ball_next_frame(pins)
+    pins[0]
   end
 
-  def add_two_frames(index, pins)
-    add_one_frame(index, pins) + pins[index + 2][0] + pins[index + 2][1]
+  def add_one_frame(pins)
+    pins[0] + pins[1]
   end
 
-  def strike(index, pins)
-    pins[index][1] == 10
+  def add_two_frames(pins)
+    pins[0] + pins[1]
   end
 
-  def spare(index, pins)
-    pins[index][0] + pins[index][1] == 10
+  def strike(pins)
+    pins[0] == 10
+  end
+
+  def spare(pins)
+    pins[0] + pins[1] == 10
   end
 end
