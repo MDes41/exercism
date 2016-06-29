@@ -35,6 +35,15 @@ class GameTest < Minitest::Test
     assert_equal [[3, 4], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], @game.frames
   end
 
+  def test_that_last_frame_puts_the_frame_in_a_group_of_three
+    skip
+    @game.roll(3)
+    @game.roll(4)
+    roll_n_times(18, 0)
+    @game.roll(4)
+    assert_equal [[3, 4], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0, 4]], @game.frames
+  end
+
   def test_that_final_score_groups_correctly_with_strike
     skip
     @game.roll(10)
@@ -55,6 +64,7 @@ class GameTest < Minitest::Test
   end
 
   def test_that_strike_at_the_end_of_the_round_without_last_frame_is_calculated
+    skip
     @game.roll(3)
     @game.roll(4)
     @game.roll(10)
@@ -128,7 +138,6 @@ class GameTest < Minitest::Test
     @game.roll(3)
     roll_n_times(16, 0)
 
-    # assert_equal [[10, 0], [10, 0], [5, 3], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0], [0, 0]], @game.frames
     assert_equal 54, @game.score
   end
 
@@ -169,7 +178,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_allow_fill_balls_when_the_final_frame_is_strike
-    # skip
+    skip
     roll_n_times(18, 0)
     @game.roll(10)
     @game.roll(7)
@@ -223,7 +232,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_two_normal_rolls_better_than_strike
-    skip
+    # skip
     assert_raises RuntimeError, 'Pin count exceeds pins on the lane' do
       @game.roll(5)
       @game.roll(6)
@@ -231,7 +240,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_two_normal_rolls_better_than_strike_in_last_frame
-    skip
+    # skip
     roll_n_times(18, 0)
     assert_raises RuntimeError, 'Pin count exceeds pins on the lane' do
       @game.roll(10)
