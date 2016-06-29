@@ -9,21 +9,30 @@ class Game
   def roll(pins)
     raise 'Pins must have a value from 0 to 10' if !valid_pins(pins)
     @pins_array << pins
+    # require "pry"; binding.pry
     raise 'Pin count exceeds pins on the lane' if !valid_frame(pins_array)
   end
 
-  def valid_frame(pins_array)
-    if @pins_array.count > 1
-      if @pins_array[-1] != 10
-        if @pins_array[-2] != 10
-          @pins_array[-1] + @pins_array[-2] <= 10
-        end
-      end
+  def valid_10th_frame
+    if @pins_array.count > 18
+      @pins_array[-1] + @pins
     end
   end
 
+  def valid_frame(pins_array)
+    require "pry"; binding.pry
+    if @pins_array.count > 1
+      if @pins_array[-1] != 10
+        if @pins_array[-2] != 10
+          return FALSE if @pins_array[-1] + @pins_array[-2] > 10
+        end
+      end
+    end
+    TRUE
+  end
+
   def valid_pins(pins)
-    (1..10).to_a.include?(pins)
+    (0..10).to_a.include?(pins)
   end
 
   def strike_indexes
