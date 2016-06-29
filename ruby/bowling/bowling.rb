@@ -36,7 +36,6 @@ class Game
   def score
     result = []
     frames_u = @pins_array
-    require "pry"; binding.pry
     raise 'Score cannot be taken until the end of the game' if frames_u[-1] == Fixnum
     raise 'Score cannot be taken until the end of the game' if frames_u.flatten.count < 20
     raise 'Score cannot be taken until the end of the game' if frames_u.flatten.count < 22 && frames_u[-1][0] == 10

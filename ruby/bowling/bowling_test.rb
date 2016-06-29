@@ -9,18 +9,18 @@ class GameTest < Minitest::Test
   end
 
   def test_must_be_able_to_roll_with_number_of_pins
-    skip
+    # skip
     assert_respond_to @game, :roll
     assert_equal 1, @game.method(:roll).arity
   end
 
   def test_must_have_a_score
-    skip
+    # skip
     assert_respond_to @game, :score
   end
 
   def test_should_be_able_to_score_open_frame
-    skip
+    # skip
     @game.roll(3)
     @game.roll(4)
     roll_n_times(18, 0)
@@ -28,7 +28,7 @@ class GameTest < Minitest::Test
   end
 
   def test_that_final_score_groups_correctly_without_strike
-    skip
+    # skip
     @game.roll(3)
     @game.roll(4)
     roll_n_times(18, 0)
@@ -36,7 +36,7 @@ class GameTest < Minitest::Test
   end
 
   def test_that_last_frame_puts_the_frame_in_a_group_of_three
-    skip
+    # skip
     @game.roll(3)
     @game.roll(4)
     roll_n_times(18, 0)
@@ -45,7 +45,7 @@ class GameTest < Minitest::Test
   end
 
   def test_that_final_score_groups_correctly_with_strike
-    skip
+    # skip
     @game.roll(10)
     @game.roll(10)
     @game.roll(2)
@@ -54,7 +54,7 @@ class GameTest < Minitest::Test
   end
 
   def test_that_two_strikes_add_to_thirty
-    skip
+    # skip
       @game.roll(10)
       @game.roll(10)
       @game.roll(10)
@@ -65,7 +65,7 @@ class GameTest < Minitest::Test
   end
 
   def test_that_strike_at_the_end_of_the_round_without_last_frame_is_calculated
-    skip
+    # skip
     @game.roll(3)
     @game.roll(4)
     @game.roll(10)
@@ -75,7 +75,7 @@ class GameTest < Minitest::Test
   end
 
   def test_strike_spare_correctly_adds_score
-    skip
+    # skip
     @game.roll(10)
     @game.roll(7)
     @game.roll(3)
@@ -86,7 +86,7 @@ class GameTest < Minitest::Test
   end
 
   def test_strike_spare_strike_correctly_adds_score
-    skip
+    # skip
     @game.roll(10)
     @game.roll(7)
     @game.roll(3)
@@ -98,7 +98,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_be_able_to_score_multiple_frames
-    skip
+    # skip
     [3, 4, 2, 3, 5, 2].each do |pins|
       @game.roll pins
     end
@@ -107,25 +107,25 @@ class GameTest < Minitest::Test
   end
 
   def test_should_score_a_game_with_all_gutterballs
-    skip
+    # skip
     roll_n_times(20, 0)
     assert_equal 0, @game.score
   end
 
   def test_should_score_a_game_with_all_single_pin_rolls
-    skip
+    # skip
     roll_n_times(20, 1)
     assert_equal 20, @game.score
   end
 
   def test_should_allow_game_with_all_open_frames
-    skip
+    # skip
     roll_n_times(10, [3, 6])
     assert_equal 90, @game.score
   end
 
   def test_should_correctly_score_a_strike_that_is_not_on_the_last_frame
-    skip
+    # skip
     @game.roll(10)
     @game.roll(5)
     @game.roll(3)
@@ -135,7 +135,7 @@ class GameTest < Minitest::Test
   end
 
   def test_groups_scores_with_a_strike_or_two
-    skip
+    # skip
     @game.roll(10)
     @game.roll(10)
     @game.roll(5)
@@ -146,7 +146,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_score_a_spare_that_is_not_on_the_last_frame
-    skip
+    # skip
     @game.roll(5)
     @game.roll(5)
     @game.roll(3)
@@ -157,7 +157,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_score_multiple_strikes_in_a_row
-    skip
+    # skip
     @game.roll(10)
     @game.roll(10)
     @game.roll(10)
@@ -169,7 +169,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_score_multiple_spares_in_a_row
-    skip
+    # skip
     @game.roll(5)
     @game.roll(5)
     @game.roll(3)
@@ -182,7 +182,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_allow_fill_balls_when_the_final_frame_is_strike
-    skip
+    # skip
     roll_n_times(18, 0)
     @game.roll(10)
     @game.roll(7)
@@ -192,7 +192,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_allow_fill_ball_in_last_frame_if_spare
-    skip
+    # skip
     roll_n_times(18, 0)
     @game.roll(9)
     @game.roll(1)
@@ -202,7 +202,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_allow_fill_balls_to_be_strike
-    skip
+    # skip
     roll_n_times(18, 0)
     @game.roll(10)
     @game.roll(10)
@@ -212,13 +212,13 @@ class GameTest < Minitest::Test
   end
 
   def test_should_score_a_perfect_game
-    skip
+    # skip
     roll_n_times(12, 10)
     assert_equal 300, @game.score
   end
 
   def test_should_not_allow_rolls_with_negative_pins
-    skip
+    # skip
     assert_raises(
       RuntimeError,
       'Pins must have a value from 0 to 10') do
@@ -227,7 +227,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_rolls_better_than_strike
-    skip
+    # skip
     assert_raises(
       RuntimeError,
       'Pins must have a value from 0 to 10') do
@@ -236,7 +236,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_two_normal_rolls_better_than_strike
-    skip
+    # skip
     assert_raises RuntimeError, 'Pin count exceeds pins on the lane' do
       @game.roll(5)
       @game.roll(6)
@@ -244,7 +244,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_two_normal_rolls_better_than_strike_in_last_frame
-    skip
+    # skip
     roll_n_times(18, 0)
     assert_raises RuntimeError, 'Pin count exceeds pins on the lane' do
       @game.roll(10)
@@ -254,7 +254,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_to_take_score_at_the_beginning
-    skip
+    # skip
     assert_raises(
       RuntimeError,
       'Score cannot be taken until the end of the game',
@@ -264,7 +264,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_to_take_score_before_game_has_ended
-    skip
+    # skip
     roll_n_times(19, 5)
     assert_raises(
       RuntimeError,
@@ -274,7 +274,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_rolls_after_the_tenth_frame
-    skip
+    # skip
     roll_n_times(20, 0)
     assert_raises(
       RuntimeError,
@@ -302,7 +302,7 @@ class GameTest < Minitest::Test
 
   # Don't forget to define a constant VERSION inside of BookKeeping.
   def test_bookkeeping
-    skip
+    # skip
     assert_equal 1, BookKeeping::VERSION
   end
 end
