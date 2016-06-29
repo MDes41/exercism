@@ -34,7 +34,7 @@ class Game
         next_frame_pins = frames_u[index + 1]
         next_next_frame_pins = frames_u[index + 2]
         next_frame_pins = [0,0] if frames_u.count - index <= 1
-        # next_next_frame_pins = [0,0] if frames_u.count - index <= 2
+        next_next_frame_pins = [0,0] if frames_u.count - index <= 2
         # require "pry"; binding.pry
         if strike(pins) && !strike(next_frame_pins)
           result << pins[0] + add_one_frame(next_frame_pins)
