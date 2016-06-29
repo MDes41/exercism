@@ -8,7 +8,8 @@ class Game
 
   def roll(pins)
     raise 'Pins must have a value from 0 to 10' if !valid_pins(pins)
-    @pins_array << pins
+    @pins_array << [ pins, 0 ] if pins == 10
+    @pins_array << pins if @pins_array[-1]
     # require "pry"; binding.pry
     raise 'Pin count exceeds pins on the lane' if !valid_frame(pins_array)
   end
