@@ -1,3 +1,7 @@
+class BookKeeping
+  VERSION = 1
+end
+
 class Game
 
   attr_reader :pins_array
@@ -17,7 +21,7 @@ class Game
     elsif @pins_array[-1].class == Fixnum
       @pins_array[-1] = [ @pins_array[-1], pins ]
     end
-    # @pins_array[-1] = [@pins_array[-1], 0] if @pins_array.count > 10
+    @pins_array[-1] = [@pins_array[-1], 0] if @pins_array.count > 10 && @pins_array[-1].class == Fixnum && @pins_array[-2][0] != 10
     raise 'Pin count exceeds pins on the lane' if !valid_frame(pins_array)
   end
 
@@ -32,8 +36,9 @@ class Game
   def score
     result = []
     frames_u = @pins_array
-    # require "pry"; binding.pry
-    raise 'Score cannot be taken until the end of the game' if frames_u.count < 20
+    require "pry"; binding.pry
+    raise 'Score cannot be taken until the end of the game' if frames_u[-1] == Fixnum
+    raise 'Score cannot be taken until the end of the game' if frames_u.flatten.count < 20
     if frames_u.count > 1
       frames_u.each_with_index do |pins, index|
         if index < 9
