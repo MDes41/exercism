@@ -39,6 +39,7 @@ class Game
     require "pry"; binding.pry
     raise 'Score cannot be taken until the end of the game' if frames_u[-1] == Fixnum
     raise 'Score cannot be taken until the end of the game' if frames_u.flatten.count < 20
+    raise 'Score cannot be taken until the end of the game' if frames_u.flatten.count < 22 && frames_u[-1][0] == 10
     if frames_u.count > 1
       frames_u.each_with_index do |pins, index|
         if index < 9
