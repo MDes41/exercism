@@ -165,7 +165,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_score_multiple_spares_in_a_row
-    # skip
+    skip
     @game.roll(5)
     @game.roll(5)
     @game.roll(3)
@@ -214,7 +214,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_rolls_with_negative_pins
-    skip
+    # skip
     assert_raises(
       RuntimeError,
       'Pins must have a value from 0 to 10') do
@@ -223,7 +223,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_rolls_better_than_strike
-    skip
+    # skip
     assert_raises(
       RuntimeError,
       'Pins must have a value from 0 to 10') do
@@ -232,7 +232,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_two_normal_rolls_better_than_strike
-    skip
+    # skip
     assert_raises RuntimeError, 'Pin count exceeds pins on the lane' do
       @game.roll(5)
       @game.roll(6)
@@ -240,7 +240,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_two_normal_rolls_better_than_strike_in_last_frame
-    skip
+    # skip
     roll_n_times(18, 0)
     assert_raises RuntimeError, 'Pin count exceeds pins on the lane' do
       @game.roll(10)
@@ -250,7 +250,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_to_take_score_at_the_beginning
-    skip
+    # skip
     assert_raises(
       RuntimeError,
       'Score cannot be taken until the end of the game',
@@ -260,7 +260,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_to_take_score_before_game_has_ended
-    skip
+    # skip
     roll_n_times(19, 5)
     assert_raises(
       RuntimeError,
@@ -270,7 +270,7 @@ class GameTest < Minitest::Test
   end
 
   def test_should_not_allow_rolls_after_the_tenth_frame
-    skip
+    # skip
     roll_n_times(20, 0)
     assert_raises(
       RuntimeError,
