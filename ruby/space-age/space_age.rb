@@ -3,7 +3,7 @@ class SpaceAge
   def initialize(seconds)
     @seconds = seconds
     @op = {
-    Earth: 31557600,
+    Earth: 31557600.00,
     Mercury: 0.2408467,
     Venus: 0.61519726,
     Mars: 1.8808158,
@@ -19,7 +19,8 @@ class SpaceAge
   end
 
   def on_earth
-    @seconds / @op[:Earth]
+    result = @seconds / @op[:Earth]
+    result.round(2)
   end
 
   def on_mercury
