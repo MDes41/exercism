@@ -1,0 +1,2 @@
+class SpaceAge
+end
