@@ -7,6 +7,7 @@ class SpaceAgeTest < Minitest::Test
   DELTA = 0.01
 
   def test_age_in_seconds
+    skip
     age = SpaceAge.new(1_000_000)
     assert_in_delta 1_000_000, age.seconds, DELTA
   end
@@ -32,7 +33,7 @@ class SpaceAgeTest < Minitest::Test
   end
 
   def test_age_on_mars
-    skip
+    # skip
     age = SpaceAge.new(2_329_871_239)
     assert_in_delta 73.83, age.on_earth, DELTA
     assert_in_delta 39.25, age.on_mars, DELTA
