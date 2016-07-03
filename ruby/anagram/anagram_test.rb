@@ -5,6 +5,7 @@ require_relative 'anagram'
 
 class AnagramTest < Minitest::Test
   def test_no_matches
+    # skip
     detector = Anagram.new('diaper')
     assert_equal [], detector.match(%w(hello world zombies pants))
   end
@@ -24,7 +25,7 @@ class AnagramTest < Minitest::Test
   end
 
   def test_does_not_confuse_different_duplicates
-    # skip
+    skip
     detector = Anagram.new('galea')
     assert_equal [], detector.match(['eagle'])
   end

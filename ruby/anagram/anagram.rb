@@ -15,8 +15,13 @@ class Anagram
   end
 
   def all_letters(word)
+    dup_word = @word
+    require "pry"; binding.pry
     word.chars.map do |letter|
-      @word.include?(letter)
+      if dup_word.include?(letter)
+        dup_word.delete!(letter)
+        TRUE
+      end
     end
   end
 end
