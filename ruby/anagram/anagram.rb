@@ -28,9 +28,8 @@ class Anagram
 
   def delete_identical(result, phrase)
     h = Hash.new(0)
-    phrase.each { |word| h[word] += 1 }
-    result_dup = result.map { |word| word.downcase }
-    result_dup.delete_if { |word| h[word] > 1}
+    phrase.each { |word| h[word.downcase] += 1 }
+    result.delete_if { |word| h[word.downcase] > 1}
   end
 
 end
