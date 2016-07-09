@@ -6,10 +6,14 @@ class Bst
     @top_node = Node.new(data)
     @current_node = @top_node
     @data = @current_node.data
+    record_all_data
+  end
+
+  def record_all_data
+    
   end
 
   def insert(data)
-    @current_node = @top_node
     find_last_node(data)
     @current_node = @top_node
   end
@@ -41,18 +45,13 @@ class Bst
   end
 
   def left
-    count = 1
-    if @current_node == @top_node
-      @current_node = @top_node.left
-    else
-      @current_node = @current_node.left
-    end
-    
-    @current_node
+    @current_node = @top_node
+    @current_node = @current_node.left
   end
 
   def right
-    @current_node.right
+    @current_node = @top_node
+    @current_node = @current_node.right
   end
 end
 

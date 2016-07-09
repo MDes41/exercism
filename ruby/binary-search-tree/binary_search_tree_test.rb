@@ -5,12 +5,12 @@ require_relative 'binary_search_tree'
 
 class BstTest < Minitest::Test
   def test_data_is_retained
-    skip
+    # skip
     assert_equal 4, Bst.new(4).data
   end
 
   def test_inserting_less
-    skip
+    # skip
     four = Bst.new 4
     four.insert 2
     assert_equal 4, four.data
@@ -18,7 +18,7 @@ class BstTest < Minitest::Test
   end
 
   def test_inserting_same
-    skip
+    # skip
     four = Bst.new 4
     four.insert 4
     assert_equal 4, four.data
@@ -26,7 +26,7 @@ class BstTest < Minitest::Test
   end
 
   def test_inserting_right
-    skip
+    # skip
     four = Bst.new 4
     four.insert 5
     assert_equal 4, four.data
@@ -43,7 +43,6 @@ class BstTest < Minitest::Test
     four.insert 7
     four.insert 5
     assert_equal 4, four.data
-    require "pry"; binding.pry
     assert_equal 2, four.left.data
     assert_equal 1, four.left.left.data
     assert_equal 3, four.left.right.data
@@ -59,7 +58,7 @@ class BstTest < Minitest::Test
   end
 
   def test_iterating_one_element
-    skip
+    # skip
     assert_equal [4], record_all_data(Bst.new(4))
   end
 
