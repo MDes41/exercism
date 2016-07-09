@@ -4,12 +4,14 @@ class Bst
 
   def initialize(data)
     @top_node = Node.new(data)
-    @current_node = @top_node.dup
-    @data = @top_node.data
+    @current_node = @top_node
+    @data = @current_node.data
   end
 
   def insert(data)
+    @current_node = @top_node
     find_last_node(data)
+    @current_node = @top_node
   end
 
   def find_last_node(data)
@@ -20,21 +22,11 @@ class Bst
     end
   end
 
-  def left
-    @current_node = @current_node.left
-  end
-
-  def right
-    @current_node = @current_node.right
-  end
-
   def left_node(data)
     if @current_node.left == nil
       @current_node.left = Node.new(data)
     else
-      # require "pry"; binding.pry
       @current_node = @current_node.left
-      # require "pry"; binding.pry
       find_last_node(data)
     end
   end
@@ -46,6 +38,21 @@ class Bst
       @current_node = @current_node.right
       find_last_node(data)
     end
+  end
+
+  def left
+    count = 1
+    if @current_node == @top_node
+      @current_node = @top_node.left
+    else
+      @current_node = @current_node.left
+    end
+    
+    @current_node
+  end
+
+  def right
+    @current_node.right
   end
 end
 

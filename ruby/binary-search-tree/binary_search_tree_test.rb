@@ -41,9 +41,9 @@ class BstTest < Minitest::Test
     four.insert 1
     four.insert 3
     four.insert 7
-    require "pry"; binding.pry
     four.insert 5
     assert_equal 4, four.data
+    require "pry"; binding.pry
     assert_equal 2, four.left.data
     assert_equal 1, four.left.left.data
     assert_equal 3, four.left.right.data
