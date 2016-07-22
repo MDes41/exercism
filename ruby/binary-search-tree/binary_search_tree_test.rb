@@ -59,6 +59,7 @@ class BstTest < Minitest::Test
 
   def test_iterating_one_element
     # skip
+    require "pry"; binding.pry
     assert_equal [4], record_all_data(Bst.new(4))
   end
 

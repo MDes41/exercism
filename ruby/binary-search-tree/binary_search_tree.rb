@@ -6,11 +6,12 @@ class Bst
     @top_node = Node.new(data)
     @current_node = @top_node
     @data = @current_node.data
-    record_all_data
+    @record = []
+    record_all(data)
   end
 
-  def record_all_data
-    
+  def record_all(data)
+    @record << data
   end
 
   def insert(data)
