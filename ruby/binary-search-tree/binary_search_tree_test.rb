@@ -49,6 +49,7 @@ class BstTest < Minitest::Test
     assert_equal 6, four.right.data
     assert_equal 5, four.right.left.data
     assert_equal 7, four.right.right.data
+    require "pry"; binding.pry
   end
 
   def record_all_data(bst)
@@ -58,8 +59,7 @@ class BstTest < Minitest::Test
   end
 
   def test_iterating_one_element
-    # skip
-    require "pry"; binding.pry
+    skip
     assert_equal [4], record_all_data(Bst.new(4))
   end
 
