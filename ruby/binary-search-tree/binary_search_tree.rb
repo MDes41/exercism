@@ -36,7 +36,6 @@ class Bst
 
   def each(&block)
     return to_enum unless block
-
     left.each(&block) if left
     block.call(data)
     right.each(&block) if right
