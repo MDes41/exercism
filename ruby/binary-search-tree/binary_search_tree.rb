@@ -1,3 +1,6 @@
+
+
+
 class Bst
 
   attr_reader :data
@@ -8,7 +11,6 @@ class Bst
   end
 
   def insert(value)
-
     case data <=> value
     when 1 then insert_left(value)
     when -1 then insert_right(value)
@@ -31,4 +33,14 @@ class Bst
       self.right = Bst.new(value)
     end
   end
+
+  def each(&block)
+    return to_enum unless block
+
+    left.each(&block) if left
+    block.call(data)
+    right.each(&block) if right
+  end
+
+  VERSION = 1
 end
