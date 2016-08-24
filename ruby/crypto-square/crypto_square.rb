@@ -19,7 +19,7 @@ class Crypto
       rows = @groups.count
       columns = @groups[0].join.length
     end
-    columns
+    @columns = columns
   end
 
   def plaintext_segments
@@ -36,14 +36,56 @@ class Crypto
     sub_nil.chars.each_slice(@rows).to_a.map { |segment| segment.join }.join(' ')
   end
 
+  def fill_table
+    @text = group_text.compact.join
+  end
+
   def sub_nil
-    result = group_text.compact
-    subs = result.count - group_text.count
-    until subs == 0
-      result[subs][-1] = "*"
-      subs +=1
+    text = group_text.compact
+    extra = text.count % (@rows + 1)
+    breaks = []
+    br = @rows
+    extra.times do
+      breaks << br
+      br += @rows
     end
-    result
+    if extra == 0
+      @rows.times do
+        breaks << br
+        br += @rows
+      end
+    else
+      (@rows - extra).times do
+        breaks << br
+        br += @rows - 1
+      end
+    end
+    require "pry"; binding.pry
+
+    # result = []
+    # until index == text.count - @
+    #   result << text[index..@rows]
+    #   extra
+    # # subs = text.count - group_text.count
+    # result = (1..(@rows + 1)).to_a.map { |i| [] }
+    # index = 0
+    # require "pry"; binding.pry
+    # text.each do |char|
+    #   if index < @rows
+    #     result[index] << char
+    #     index += 1
+    #   else
+    #     result[index] << char
+    #     index = 0
+    #   end
+    # end
+    # until subs == 0
+    #   result << "*"
+    #   subs +=1
+    # end
+    # result.join
+    # require "pry"; binding.pry
+    result.join
   end
 
   def group_text

@@ -96,6 +96,8 @@ class CryptoTest < Minitest::Test
   def test_normalized_ciphertext
     # skip
     crypto = Crypto.new('Vampires are people too!')
+    # assert_equal ' ', crypto.plaintext_segments
+    require "pry"; binding.pry
     assert_equal 'vrel aepe mset paoo irpo', crypto.normalize_ciphertext
   end
 
@@ -103,6 +105,7 @@ class CryptoTest < Minitest::Test
     # skip
     crypto = Crypto.new('Madness, and then illumination.')
     expected = 'msemo aanin dnin ndla etlt shui'
+    require "pry"; binding.pry
     assert_equal expected, crypto.normalize_ciphertext
   end
 
