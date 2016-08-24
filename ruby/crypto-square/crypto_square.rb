@@ -19,7 +19,7 @@ class Crypto
       rows = @groups.count
       columns = @groups[0].join.length
     end
-    @columns = columns
+    columns
   end
 
   def plaintext_segments
@@ -33,7 +33,7 @@ class Crypto
   end
 
   def normalize_ciphertext
-    sub_nil.chars.each_slice(@rows).to_a.map { |segment| segment.join }.join(' ')
+    sub_nil.each_slice(@rows).to_a.map { |segment| segment.join }.join(' ').gsub("*", "")
   end
 
   def fill_table
@@ -43,49 +43,19 @@ class Crypto
   def sub_nil
     text = group_text.compact
     extra = text.count % (@rows + 1)
-    breaks = []
-    br = @rows
-    extra.times do
-      breaks << br
-      br += @rows
+    extra = @rows - extra if extra != 0
+    breaks = -(@rows)
+    extra_char = [-1]
+    extra.times do |index|
+      extra_char << breaks
+      breaks -= (@rows -1)
     end
-    if extra == 0
-      @rows.times do
-        breaks << br
-        br += @rows
-      end
-    else
-      (@rows - extra).times do
-        breaks << br
-        br += @rows - 1
-      end
-    end
-    require "pry"; binding.pry
-
-    # result = []
-    # until index == text.count - @
-    #   result << text[index..@rows]
-    #   extra
-    # # subs = text.count - group_text.count
-    # result = (1..(@rows + 1)).to_a.map { |i| [] }
-    # index = 0
-    # require "pry"; binding.pry
-    # text.each do |char|
-    #   if index < @rows
-    #     result[index] << char
-    #     index += 1
-    #   else
-    #     result[index] << char
-    #     index = 0
-    #   end
-    # end
-    # until subs == 0
-    #   result << "*"
-    #   subs +=1
-    # end
-    # result.join
-    # require "pry"; binding.pry
-    result.join
+    if extra != 0
+       extra_char.reverse.each do |index|
+         text = text.insert(index, '*')
+       end
+     end
+     text
   end
 
   def group_text
