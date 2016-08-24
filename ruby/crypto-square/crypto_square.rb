@@ -10,8 +10,8 @@ class Crypto
 
   def size
     rows = 1
-    phrase = normalize_plaintext
     slice = 0
+    phrase = normalize_plaintext
     columns = phrase.length
     until columns - rows <= 1 && columns >= rows
       slice += 1
@@ -43,19 +43,25 @@ class Crypto
   def sub_nil
     text = group_text.compact
     extra = text.count % (@rows + 1)
-    extra = @rows - extra if extra != 0
+    if extra != 0
+      add_extra_chars(text, extra)
+    else
+      text
+    end
+  end
+
+  def add_extra_chars(text, extra)
+    extra = @rows - extra
     breaks = -(@rows)
     extra_char = [-1]
     extra.times do |index|
       extra_char << breaks
       breaks -= (@rows -1)
     end
-    if extra != 0
-       extra_char.reverse.each do |index|
-         text = text.insert(index, '*')
-       end
-     end
-     text
+    extra_char.reverse.each do |index|
+      text = text.insert(index, '*')
+    end
+    text
   end
 
   def group_text
