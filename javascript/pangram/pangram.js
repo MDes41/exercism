@@ -7,12 +7,15 @@ filterOut = function (value) {
 }
 
 Pangram.prototype.isPangram = function () {
-  var string = this.string.replace(/\s/g, '')
+  var string = this.string.replace(/\s/g, '').toLowerCase().split('')
   var alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('')
   for(var i=0; i < string.length; i++) {
-    alphabet = alphabet.filter(filterOut, string.split('')[i].toLowerCase())
+    var indexOfSplice = alphabet.indexOf(string[i])
+    if( indexOfSplice > -1 ) {
+      alphabet.splice(indexOfSplice, 1)
+    }
   }
-  return alphabet.length
+  return alphabet.length == 0
 
 
 }
