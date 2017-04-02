@@ -10,14 +10,17 @@ class Sieve
     else  
       all_numbers = (2..@number).to_a
       total = all_numbers.length
-      factor = 2
-      until (factor - 1) > total do
-        all_numbers.delete_at(factor - 1)
-        factor *= 2
+      result = all_numbers.dup
+      all_numbers.each_with_index do |number, i|
+        factor = all_numbers[i].to_i
+        until factor + i > total
+          result[i + factor] = nil 
+          factor = factor * 2
+        end
       end
-      all_numbers
-
-
+      result.map do |number|
+        number if number != nil
+      end.compact
     end
   end
 end
