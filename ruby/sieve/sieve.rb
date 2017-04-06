@@ -9,17 +9,17 @@ class Sieve
       []
     else  
       all_numbers = (2..@number).to_a
-      total = all_numbers.length
+      total = all_numbers.dup.length
       result = all_numbers.dup
       all_numbers.each_with_index do |number, i|
         factor = all_numbers[i].to_i
         until factor + i > total
           result[i + factor] = nil 
-          factor = factor * 2
+          factor = all_numbers[i] + factor
         end
       end
       result.map do |number|
-        number if number != nil
+        number
       end.compact
     end
   end
