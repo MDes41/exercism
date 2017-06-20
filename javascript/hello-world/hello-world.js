@@ -9,14 +9,16 @@ var HelloWorld = function() {};
 
 HelloWorld.prototype.hello = function(input) {
 
-	if(input === '') {
-		input = 'World'
-	}
-	else {
-		input = input
-	}
+	// if(input === '') {
+	// 	input = 'World'
+	// }
+	// else {
+	// 	input = input
+	// }
 
-	return 'Hello, '+input+'!'
+	// return 'Hello, '+input+'!'
+
+	return 'hey'
 };
 
 module.exports = HelloWorld;
