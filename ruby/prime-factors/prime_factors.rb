@@ -1,21 +1,21 @@
+#all working but needs to be cleaned up
 class PrimeFactors
   def self.for(number)
     final = [number]
     result = []
+    divisor = 2
     loop do 
       break if number == 1
       break if result.reduce(:*) == final.first
-      divisor = 2
       while divisor <= final.first
         if number % divisor != 0
           divisor += 1
         elsif number == divisor
           result << divisor
-          divisor += 1
+          divisor = final.first + 1
         else
           number = number / divisor
           result << divisor
-          divisor += 1
         end
       end
     end
