@@ -1,20 +1,16 @@
-require 'time'
 class Clock
+  attr_reader :total_minutes
 
-  def self.to_s
-    # self.new
-    # time = Time.strptime("#{self / 60}:#{self % 60}", "%H:%M")
-    # "#{"%.2d" % time.hour}:#{"%.2d" % time.min}"
-    # 'name'
+  def initialize(hour, minute)
+    @total_minutes = (hour * 60) + minute
+  end
+
+  def to_s
+    "#{"%.2d" % ((@total_minutes / 60) % 24)}:#{"%.2d" % (@total_minutes % 60)}"
   end
 
   def self.at(hour, minute)
-    hours_of_minutes = minute / 60
-    hour = (hours_of_minutes + hour) % 24
-    minute = minute % 60
-    @total_minutes = (hour * 60) + minute
-    @total_minutes
+    new(hour, minute)
   end
-
 
 end
