@@ -20,6 +20,7 @@ class Solve
 
   def initialize(input)
     @letters ||= all_letters(input)
+    @combos = combos(@letters)
   end
 
   def all_letters(input)
@@ -28,12 +29,16 @@ class Solve
     letters
   end
 
-  def test_combos(letters)
-    return if (solve_puzzle(letters))
-    9.times do |i|
-      value = letters.select { |k,v| v < i }.keys.first
-      letters[value] += 1
-      test_combos(letters)
+  def test_combos(letter)
+      (0..9).to_a.each do |i|
+        letters[letter] += i
+        return if (solve_puzzle(letters))
+      end
+  end
+
+  def combos(letters)
+    letters.each do |letter|
+      test_combos(letter)
     end
   end
 
