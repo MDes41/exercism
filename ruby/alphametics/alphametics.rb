@@ -2,27 +2,15 @@ class Alphametics
   attr_reader :answer
 
   def initialize(input)
-    @valuation = get_result(input)
-    @arguments = get_arguments(input)
-    @answer = Solve.new([@arguments, @valuation])
+    @answer = Solve.new(take_out_operators(input))
   end
 
   def self.solve(input)
     new(input).answer
   end
 
-  def get_result(input)
-    /== /.match("#{input}")
-    $'
-  end
-
-  def get_arguments(input)
-    /==/.match("#{input}")
-    take_out_operators($`.split)
-  end
-
   def take_out_operators(input)
-    input.find_all { |letter| letter != '+'}
+    input.tr('^A-Z', '')
   end
 
 end
@@ -31,15 +19,12 @@ class Solve
   attr_reader :letters
 
   def initialize(input)
-    @result = input[1]
-    @arguments = input[0]
     @letters ||= all_letters(input)
-    @combos = test_combos(@letters)
   end
 
   def all_letters(input)
     letters = Hash.new(0)
-    input.join.chars.each { |element| letters[element] = 0}
+    input.chars.each { |element| letters[element] = 0}
     letters
   end
 
@@ -51,12 +36,6 @@ class Solve
       test_combos(letters)
     end
   end
-
-  # def test_numbers(letter)
-  #   0..9.times do |i|
-  #     letters[letter] = i
-  #   end
-  # end
 
   def solve_puzzle(letters)
     return false if letters.reduce(0) { |sum,k| k[1] } == 0 
