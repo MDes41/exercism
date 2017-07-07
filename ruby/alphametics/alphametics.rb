@@ -1,42 +1,81 @@
 class Alphametics
-  attr_reader :answer
+  attr_reader :arguments, :valuation
 
   def initialize(input)
-    @answer = Solve.new(take_out_operators(input))
+    @arguments = get_arguments(input)
+    @valuation = get_valuation(input)
   end
 
   def self.solve(input)
-    new(input).answer
+    new(input).solve
+  end
+
+  def solve
+    Solve.new(arguments, valuation).solution
+  end
+
+  def get_arguments(input)
+    / == /.match(input)
+    $`.split(' + ')
+  end
+
+  def get_valuation(input)
+    / == /.match(input)
+    $'
+  end
+
+end
+
+class Solve
+  attr_reader :arguments, :valuation, :letters, :solution
+
+  def initialize(arguments, valuation)
+    @arguments = arguments
+    @valuation = valuation
+    @letters ||= all_letters(arguments.join + valuation)
+  end
+
+  def solution
+    test_combos(letters)
+    letters
   end
 
   def take_out_operators(input)
     input.tr('^A-Z', '')
   end
 
-end
-
-class Solve
-  attr_reader :letters
-
-  def initialize(input)
-    @letters ||= all_letters(input)
-    @combos = combos(@letters)
-  end
-
   def all_letters(input)
     letters = Hash.new(0)
-    input.chars.each { |element| letters[element] = 0}
+    take_out_operators(input).chars.sort.each { |element| letters[element] = 0}
     letters
   end
 
-  def test_combos(letter)
+  def test_combos(letters)
+    until solve_puzzle
+      letters.map do |letter, _number|
+        letters[letter] = rand(0..9)
+      end
+    end
   end
 
-  def combos(letters)
+  def lookup(inputs)
+    inputs = Array(inputs)
+    result = inputs.map do |input|
+      input.chars.map do |char| 
+        letters[char] 
+      end.join
+    end.map(&:to_i)
+    result.reduce(:+)
   end
 
-  def solve_puzzle(letters)
-    return false if letters.to_a.uniq { |letter| letter.first } 
-    "#{@letters['I']}" + "#{@letters['B']}#{@letters['B']}" == "#{@letters['I']}#{@letters['L']}#{@letters['L']}"
+  def solve_puzzle
+    return false unless letters.uniq?
+    lookup(arguments) == lookup(valuation)
+  end
+end
+
+class Hash
+  def uniq?
+    self.values.uniq == self.values
   end
 end
