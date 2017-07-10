@@ -36,6 +36,9 @@ class Solve
   end
 
   def solution
+    return {} if arguments.length == 1 && arguments[0] != valuation
+    return {} if arguments.any? { |arg| arg.length > valuation.length }
+    arguments.any? { |arg| arg.length > valuation.length }
     test_combos(letters)
     letters
   end
@@ -45,9 +48,7 @@ class Solve
   end
 
   def all_letters(input)
-    letters = Hash.new(0)
-    take_out_operators(input).chars.sort.each { |element| letters[element] = 0}
-    letters
+    take_out_operators(input).chars.sort.each_with_object({}) { |str, hsh| hsh[str] = 0}
   end
 
   def test_combos(letters)
@@ -69,8 +70,12 @@ class Solve
   end
 
   def solve_puzzle
-    return false unless letters.uniq?
+    return false unless valid?
     lookup(arguments) == lookup(valuation)
+  end
+
+  def valid?
+    letters.uniq? && letters[valuation[0]] != 0
   end
 end
 

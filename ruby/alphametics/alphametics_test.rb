@@ -6,14 +6,14 @@ require_relative 'alphametics'
 class AlphameticsTest < Minitest::Test
 
   def test_puzzle_with_three_letters
-    skip
+    # skip
     input = 'I + BB == ILL'
     expected = { 'B' => 9, 'I' => 1, 'L' => 0 }
     assert_equal expected, Alphametics.solve(input)
   end
 
   def test_solution_must_have_unique_value_for_each_letter
-    # skip
+    skip
     input = 'A == B'
     expected = {}
     assert_equal expected, Alphametics.solve(input)
@@ -53,7 +53,7 @@ class AlphameticsTest < Minitest::Test
   # but an optimised solution can solve it fairly quickly.
   # (It's OK to submit your solution without getting this test to pass.)
   def test_puzzle_with_eight_letters
-    skip
+    # skip
     input = 'SEND + MORE == MONEY'
     expected = { 'D' => 7, 'E' => 5, 'M' => 1, 'N' => 6,
                  'O' => 0, 'R' => 8, 'S' => 9, 'Y' => 2 }
