@@ -20,7 +20,6 @@ class RailFenceCipher
       direction = 1 if category == 0
     end
     return '' if result[0] == nil
-    # require 'pry';binding.pry
     result.compact.join
   end
 
@@ -30,13 +29,13 @@ class RailFenceCipher
     length = cypher.length
     cypher.chars.each_with_index do |char, index|
       division = length / rails
-    # require 'pry';binding.pry
       return result.join if index == division
       result << cypher[index]
       while division < length
-        result << cypher[index + division- 1]
+        result << cypher[index + division]
         division += division
       end
     end
+    result.join
   end
 end
