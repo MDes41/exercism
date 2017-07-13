@@ -14,4 +14,14 @@ class String
   end
 end
   
+# class Acronym
+#   def self.abbreviate(string)
+#     require 'pry';binding.pry
+#     string.scan(/\b[a-z]/i).join.upcase
+#   end
+# end
+
+# module BookKeeping
+#   VERSION = 4
+# end
 
