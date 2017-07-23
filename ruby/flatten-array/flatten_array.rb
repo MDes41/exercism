@@ -1,4 +1,5 @@
 class FlattenArray
+  VERSION = 1
 
   attr_reader :result
 
@@ -15,50 +16,17 @@ class FlattenArray
     if mixed_arr[0].class == Fixnum
       result << mixed_arr.shift
       flatten(mixed_arr)
-    else
-      mixed_arr[0] == Array
-      flatten_number(mixed_arr.shift)
+    elsif mixed_arr[0] == nil
+      mixed_arr.shift
       flatten(mixed_arr)
-    end
-    result
-  end
-
-  def flatten_number(number)
-    return if number == []
-    if number[0].class == Fixnum
-      result << number.shift
-      flatten_number(number)
+    elsif mixed_arr[0].class == Array
+      if mixed_arr[0] == []
+        mixed_arr.shift
+        flatten(mixed_arr)
+      else
+        flatten(mixed_arr.unshift(mixed_arr[0].shift))
+      end
     end
   end
-
-  # def self.flatten(mixed_arr)
-  #   result = []
-  #   while mixed_arr[0] != ''
-  #     if mixed_arr[0].class == Fixnum
-  #       result << mixed_arr.shift
-  #       self.flatten(mixed_arr)
-  #     elsif mixed_arr[0].class == Array
-  #       mixed_arr[0] = mixed_arr[0].first
-  #       self.flatten(mixed_arr)
-  #     end
-  #   end
-  #   result
-  # end
-
-
-  # def self.flatten(mixed_arr)
-  #   result = []
-  #   if mixed_arr[0].class == Array
-  #     mixed_arr[0] = mixed_arr[0].first
-  #     flatten(mixed_arr)
-  #   end
-  #   result << mixed_arr.shift
-  #   mixed_arr.map do |number|
-  #     while number.class == Array
-  #       number = number.map { |num| num }
-  #     end
-  #   end
-  #   result
-  # end
 end
 
