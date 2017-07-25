@@ -11,17 +11,18 @@ class FlattenArray
     new.flatten(mixed_arr)
   end
 
-  def flatten(elements_to_process)
-    elements_to_process.compact!
-    current_element = elements_to_process[0]
-    elements_to_process.shift if current_element        == []
-    return result             if elements_to_process    == []
-    if current_element.class    == Fixnum
-      result << elements_to_process.shift
-      flatten(elements_to_process)
-    elsif current_element.class == Array
-      flatten(elements_to_process.unshift(current_element.shift))
+
+  def flatten(array_to_flat)
+    result = []
+
+    array_to_flat.each do |item|
+      if item.is_a?(Array)
+        result += flatten(item)
+      else
+        result += [item]
+      end
     end
+
+    return result.compact
   end
 end
-
