@@ -4,7 +4,8 @@ class Hexadecimal
 
   def initialize(number)
     @number = number  
-    @base = { "1" => 1, 
+    @base = { "0" => 0, 
+              "1" => 1, 
               "2" => 2, 
               "3" => 3, 
               "4" => 4, 
@@ -23,7 +24,10 @@ class Hexadecimal
   end
 
   def to_decimal
-    base[number]
+    number.chars.reverse.each_with_index.reduce(0) do |sum, (hex, index)|
+      return 0 if !base[hex]
+      sum += base[hex] * (16 ** index)
+    end
   end
 
 end

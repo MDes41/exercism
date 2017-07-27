@@ -10,6 +10,7 @@ RSpec.describe Hexadecimal do
 
     it 'converts the ones place' do
       result = []
+      result << Hexadecimal.new('0').to_decimal
       result << Hexadecimal.new('1').to_decimal
       result << Hexadecimal.new('2').to_decimal
       result << Hexadecimal.new('3').to_decimal
@@ -26,7 +27,13 @@ RSpec.describe Hexadecimal do
       result << Hexadecimal.new('e').to_decimal
       result << Hexadecimal.new('f').to_decimal
 
-      expect(result).to eq([1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+      expect(result).to eq([0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15])
+    end
+
+    it 'converts the tens place' do
+      hd = Hexadecimal.new('10').to_decimal
+
+      expect(hd).to eq(16)
     end
   end
 end
