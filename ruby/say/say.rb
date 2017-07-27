@@ -12,21 +12,18 @@ class Say
                   6 => 'six',
                   7 => 'seven',
                   8 => 'eight',
-                  9 => 'nine'
-                  10 => 'nine'
-                  11 => 'nine'
-                  12 => 'nine'
-                  14 => 'thir'
-                  15 => 'fifte'
-                  16 => 'thir'
-                  17 => 'thir'
-                  18 => 'thir'
-                  19 => 'thir'
+                  9 => 'nine',
+                  10 => 'ten',
+                  20 => 'twenty',
+                  30 => 'thirty',
+                  40 => 'fourty',
+                  50 => 'fifty'
 
                 }
   end
 
   def in_english
-    factors[question] if question <= 9
+    return factors[question] if question <= 9
+    factors[question - 10] + 'teen' if question > 9 && question < 20
   end
 end
