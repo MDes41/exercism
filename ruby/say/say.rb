@@ -29,7 +29,8 @@ class Say
                     '1' => 'teen',
                     '2' => 'hundred',
                     '3' => 'thousand',
-                    '6' => 'million'
+                    '6' => 'million',
+                    '9' => 'billion'
                   }
   end
 
